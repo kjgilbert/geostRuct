@@ -13,11 +13,6 @@
 %% BEGINNING OF DOCUMENT   
 
 
-\author{Kimberly J. Gilbert\\
-\large{Peter D. Fields}
-}
-
-
 \title{Package `geostRuct'}
 
 \begin{document}
@@ -30,10 +25,35 @@
 
 \begin{itemize}
 \item[] \textbf{Title:} Geographical genetic structure maps
-\item[] An R package to visualize genetic structure data on geographic maps
-\item[] Version 0
+\item[] \textbf{Version:} 0
+\item[] \textbf{Authors:} Kimberly J. Gilbert \& Peter D. Fields
+\item[] \textbf{Description:} An R package to visualize genetic structure data on geographic maps. Genetic clustering data from commonly used programs such as Structure, easily visualized in geographic space as pie charts or bar plots. Other types of frequency data are also equally applicable. Builds off of existing functions in `mapplots'.
+
 
 \end{itemize}
+
+
+\section*{Notes}
+
+Purpose:\\\indent Visualize\\\indent\indent	Pie charts on a map\\\indent\indent	Bar plots on a map\\\indent\indent Could try to interface with R googlemaps too, in order to plot on real maps… \\%% PDF -- This could be useful, especially when elevation data could be important for understanding structure. We might pick up some useful code from Flora Jay’s POPS project 
+
+\noindent Target audience:\\\indent Population geneticists\\\indent Users of structure\\\indent Users of anyone with frequency data in space\\
+\noindent To figure out:\\\indent Format of input data\\\indent \indent	.txt and .csv\\\indent Number of columns limited\\%% PDF and KJG  I think we should keep a very simple format, for example an ID column, a latitude column, a longitude column, and then some number of columns consistent with the Q matrix from structure/clummp, or whatever frequency data could be of use. –agreed, see pseudocode below\indent\indent	Titles of columns best to be set, at least for lat lon, maybe ‘type1’ ‘type2’ etc for pie slice columnsWe definitely want to constrain this for simplicity. We might do something like k.1, or some other replacement for k that’s less associated with structure.\\
+
+\noindent Packages to call\\\indent\indent	-see pseudocode\\Format of output image\\\indent\indent.pdf  .jpeg  .tiff\\Size of output image – will either have to set this constant or have point size change with it, can make standard point size a fraction of final image size? Probably easiest that way\\%% PDF  What’s nice out postscript or pdf is that no matter how much you need to zoom, the image doesn’t become pixelated.  \noindent Colors\\Text labels - user option\\Legend - user option\\Transparency - user option for percent transparent\\Size scaling - user option, based on total pop size or all points same size\\Prevent point overlapping - user option\\Map scale bar - user option\\
+
+\begin{comment}Map projection – user option – I am hesitant to do this, yet to get projections down patProjection could be important but I don’t think this feature should be focused upon. Often these maps are good enough as slight abstractions of reality. –agreed, no projections for now; people who can figure that out will probably be smart enough to go into the package it and edit it to their needs.  I think each projection is much too specific for us to try and fiddle with to apply so broadly.Map area to plot – stick to just country borders for now, add more later	Detail to include, e.g. states? I think we try with countries first. If this works we try more types of files.  –agreed, lets just stick with countries for now; since states already exist data-wise in the package, we will probably want to have that in there as an option.		Maybe if people have their own shapefiles somehow those could get plotted?			I think no, it’s not being made for people who know how to make mapsSee above.\end{comment}\section{Pseudocode}
+
+Function will have a set of default settings that users can edit when desired.
+%Probably want to set up a paramfile to hold all of the user settings rather than reading them into the command line when using defaults – set up similar to distruct paramfile, where you still can use command line flags%% PDF I like this idea.	%% KJG When setting up R function, just have default settings for options, and allow users to edit them when needed\noindent I.	Load packages\\\indent a.	Maps\\\indent b.	Mapdata\\\indent c.	Maptools\\\indent d.	Mapplots – add.pie\\\indent e.	Scales - transparency\\\noindent II.	Read data\\\indent a.	Data file needs columns:\\\indent \indent i.	Latitude\\\indent \indent ii.	Longitude\\\indent \indent iii.	Total (optional, could be pop size or sample size at a point)\\\indent \indent iv.	Slice 1\\\indent \indent v.	Slice 2\\\indent \indent vi.	Slice 3, 4, … (past 2 optional)\\\indent \indent vii.	ID (optional, for text if desired)\\\indent b.	Read in data function should have a setting to specify whether it’s taking a .txt file or a .csv file --- or might be equivalent; if it’s not, can make a conversion function once data is in\\\indent \indent i.	read.txt() and read.csv() \\\indent \indent ii.	Once one of those reads in the data, convert to the same format, each conversion will have it’s own function\\\indent c.	Additionally, have an option to read data from CLUMPP format\\\indent \indent i.	.pop files should be sufficient for pie charts\\\indent \indent ii.	.ind files could work for bar plots\\\indent \indent iii.	use could have a second data file where gps points correspond to the numbered pops in the clump outputs\\\indent \indent \indent 1.	‘match()’ function can be used here for pairing up data by numerical IDs\\\noindent III.	Make map\\\indent a.	Extent to cover\\\indent \indent i.	Based on GPS data read in – see the ‘basic.map()’ function in mapplots\\\indent \indent ii.	Color\\\indent \indent iii.	Probably want to base final output file size on this extent\\\noindent IV.	Add points\\\indent a.	Solid or transparent, border or no border\\\indent b.	Size scaled or constant\\\indent \indent i.	Need to set base size, probably determined proportionally from output image size, or let user decide\\\indent c.	Colors\\\indent d.	\\\noindent V.	Add barplots --- another function, get to this later after working out the pies; mapplots package also has useful code for making barplots on top of existing plots!\\\indent a.	Position\\\indent b.	Colors\\\indent c.	Size\\\noindent VI.	Add extras\\\indent a.	Text\\\indent \indent i.	Size\\\indent \indent ii.	Position\\\indent b.	Legend\\\indent \indent i.	Location\\\indent \indent ii.	Size\\\indent c.	Scale bar\\\indent \indent i.	Location\\\indent \indent ii.	Size\\\indent d.	box()\\\noindent VII.	Output file --- maybe see somehow if this can be kept separate? Or should it be innate in a way similar to RgoogleMaps… has pros and cons either way\\\indent a.	Format\\\indent \indent i.	.pdf\\\indent \indent ii.	.tiff\\\indent \indent iii.	.jpeg\\\indent b.	File path to send to\\\section*{To Do}Come up with a range of phony sample files%% PDF -- There must some classical studies we could use here. – yes, I can look around on Dryad maybe, any published package needs to have examples run through in full, so more fun to do this with real data I suppose (not sure if that requires any extra paperwork though? Maybe we could just use the global silene data, I would be happy to use some of my BC data, and then something on a small scale, like the metapop).	Must cover the range of the globe, and a range of zoomed in vs zoomed out, and a range of number of colored slices%% PDF -- The zooming could be tricky. Perhaps we could provide a set of defaults that describe particular extents of the globe? %% KJG --	I agree it could be tricky, but each time the map is plotted, if it is based off of the range of lat/lon covered in the input file, I think it is needed.  E.g. if I feed in the matapop GPS points, I don’t want a map of the whole world or all of the US, I just want 2 counties.
+
+Peter is working on non-overlapping points
+
+Kim is starting on coding the function
+
+Remaining:
+
+get data to test
 
 
 
@@ -50,3 +70,4 @@ second function
 %% END OF DOCUMENT
 
 \end{document}
+
