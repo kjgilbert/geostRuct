@@ -31,7 +31,7 @@ map("world", add=TRUE)
 
 ## EDIT THE BASEMAP FUNCTION FROM mapplots
 
-extent.map <- function(dat, bg = "white", col="gray90", fill=TRUE, axes=FALSE, xlab="", ylab="", main="")#, ...)
+extent.map <- function(dat, bg = "white", col="gray90", fill=TRUE, axes=FALSE, xlab="", ylab="", main="", usstates=FALSE)#, ...)
 {
 	xlim <- range(dat$lon)
 	ylim <- range(dat$lat)
@@ -40,9 +40,27 @@ extent.map <- function(dat, bg = "white", col="gray90", fill=TRUE, axes=FALSE, x
     rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)
     #add world map plotted on top
     map("world", add=TRUE, col=col, fill=fill)
+    if(usstates==TRUE){map("state", add=TRUE, col=col, fill=fill)}
     box()
 }
 ## NEED TO FIGURE OUT HOW TO LEAVE THE ... in there, it calls standard options from base graphics
+#the above map extent changes based on resizing of quartz window; might be okay once I figure out how to export to file, but try something else for now below
+
+
+
+
+
+### just plot a map based on lat/lon in file
+
+bmap <- function(dat, col="gray90", fill=TRUE, axes=FALSE, xlab="", ylab="", main="", usstates=FALSE)#, ...)
+{
+	xlim <- range(dat$lon)
+	ylim <- range(dat$lat)
+    #plot map
+    map("world", xlim = xlim, ylim = ylim, col=col, fill=fill)
+    if(usstates==TRUE){map("state", add=TRUE, col=col, fill=fill)}
+    box()
+}
 
 
 
