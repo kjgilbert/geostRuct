@@ -1,5 +1,34 @@
 
 
+qfile <- "~/Documents/My_Documents/Taylor_Lab/Data/My Data/Structure/Results/GlobalData_WithSAMS1_11092010_run_6_f"
+
+qfile <- "~/Documents/My_Documents/Taylor_Lab/Data/My Data/Structure/Results/GlobalData_WithSAMS1_11092010_run_3_f"
+
+qfile <- "~/Documents/My_Documents/Taylor_Lab/Data/My Data/Structure/Results/GlobalData_WithSAMS1_11092010_run_4_f"
+
+
+#this is a clumpp ind output file:
+clumppfile <- "~/Documents/My_Documents/UBC/Research/ReproducibilityGroup/STRUCTURE/Reanalyses/ButterflyFish/CLUMPP_Output/WithPop/K2.indfile"
+
+source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/Colors.R', chdir = TRUE)
+source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/ReadQ.R', chdir = TRUE)
+source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/PlotQ.R', chdir = TRUE)
+
+read.q(qfile)
+
+read.q(clumppfile, clumpp=TRUE)
+
+
+plot.bars(bars)
+
+#now need to work on sizing the plot
+#maybe change how population delinitation lines are drawn
+
+
+
+
+
+
 
 ###################################################################################
 ## Plot structure results - can be used for CLUMPP output with some modification
@@ -22,7 +51,7 @@ qfile <- "~/Documents/My_Documents/Taylor_Lab/Data/My Data/Structure/Results/Glo
 
 qfile <- "~/Documents/My_Documents/Taylor_Lab/Data/My Data/Structure/Results/GlobalData_WithSAMS1_11092010_run_3_f"
 
-read.q <- function(qfile){
+#read.q <- function(qfile){
 	## Read in Q and identify K
 	qstart <- which(read.table(qfile,sep="\t",blank.lines.skip =F, stringsAsFactors=F)=="Inferred ancestry of individuals:")+1
 	qend <- which(read.table(qfile,sep="\t",blank.lines.skip =F, stringsAsFactors=F)=="Estimated Allele Frequencies in each cluster")-3
@@ -43,9 +72,11 @@ read.q <- function(qfile){
 	popsizes <- popsizes0[order(match(levels(qall$pops),qall$pops))]
 
 	#make matrix of q values for plotting
-	return(bars <- t(as.matrix(qall[,(firstcol-1)+1:k])) ) #return transpose of matrix
-	#return(bars)
-}
+	bars <- t(as.matrix(qall[,(firstcol-1)+1:k])) #return transpose of matrix
+	#return(as.matrix(bars))
+#	dat <- bars
+#	return(dat)
+#}
 
 
 # Barplots ala Structure/distruct

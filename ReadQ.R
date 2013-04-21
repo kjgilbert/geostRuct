@@ -2,7 +2,10 @@
 
 ## Read Q file in
 read.q <- function(qfile, clumpp=FALSE){
-	if(clumpp==TRUE){vals <- read.table(qfile)}else{ 
+	if(clumpp==TRUE){
+		vals <- read.table(qfile)
+		firstcol <- which(vals[1,]==":")+1
+		}else{ 
 	#if we are using clumpp output directly, it is already formatted, so just skip down to determining K
 # these steps read raw structure output
 # the vals file created below is the same as the INDIVIDUAL output file from CLUMPP
@@ -18,7 +21,6 @@ read.q <- function(qfile, clumpp=FALSE){
 		#this column is where the q value data starts, preceding columns are identifiers of individuals and pops
 	}
 
-
 ## Determine K
 	k <- sum(sapply(firstcol:ncol(vals),function(x){is.numeric(vals[,x])}))
 
@@ -26,8 +28,8 @@ read.q <- function(qfile, clumpp=FALSE){
 	q <- vals[order(vals[,3]),]   ## you can sort them by population here (optional)
 	q$pops <- as.factor(q[,3])
 	popsizes0 <- table(q$pops)
-	popsizes <- popsizes0[order(match(levels(q$pops),q$pops))]
+	popsizes <<- popsizes0[order(match(levels(q$pops),q$pops))]
 
-	#make matrix of q values for plotting
+	#make matrix of q values for plotting, assigned to exist outside of the scope of the function with '<<-'
 	bars <<- t(as.matrix(q[,(firstcol-1)+1:k])) #return transpose of matrix	
 }

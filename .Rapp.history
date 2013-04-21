@@ -1,0 +1,230 @@
+?read.txt
+?read.csv
+?read.text
+?read.table
+dat1 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_1.csv")
+head(dat1)
+dat11 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_1.txt")
+head(dat11)
+str(dat1)
+str(dat11)
+dat11 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_1.txt", header=TRUE)
+str(dat11)
+str(dat1)
+dat2 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.csv")
+dat22 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.txt", header=TRUE)
+dat22 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.txt", header=TRUE)
+head(dat2)
+dat2[,9]
+str(dat2)
+dat22 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.txt", header=TRUE)
+library(maps)#
+library(mapdata)#
+library(maptools)#
+library(mapplots)#
+library(scales)
+mapplots
+?draw.pie
+draw.pie
+map("world", xlim=c(-130,30),ylim=c(34,59.5), resolution=0.01,  col="gray90", fill=TRUE)#, projection="conic", param=30)
+map("state", add=TRUE)
+gps <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/MAPS/latifolia_cpDNA_data.csv")
+ids <- seq(1, length(gps$POP)) #make a list the length of my number of data points#
+i <- 0  #start the loop at 0#
+for(i in ids){   #run through all data points#
+	east <- gps[i,2]#
+	west <- gps[i,3]#
+	tot <- gps[i,4]#
+	lat <- gps[i,5]#
+	lon <- gps[i,6]#
+	#floating.pie(lon, lat, x=c(east+0.001, west+0.001), radius=sqrt(tot)/2, col=c(alpha("orange", 0.5), alpha("blue", 0.5)))#
+	add.pie(z=c(east, west), x=lon, y=lat, radius=sqrt(tot)/2, col=c(alpha("orange", 0.6), alpha("blue", 0.6)), labels="")#
+	#draw.pie((z=c(east, west), x=lon, y=lat, radius=1, col=c(alpha("orange", 0.6), alpha("blue", 0.6))))#
+}
+quartz()
+map("world", xlim=c(-130,30),ylim=c(34,59.5), resolution=0.01,  col="gray90", fill=TRUE)#, projection="conic", param=30)#
+map("state", add=TRUE)#
+ids <- seq(1, length(gps$POP)) #make a list the length of my number of data points#
+i <- 0  #start the loop at 0#
+for(i in ids){   #run through all data points#
+	east <- gps[i,2]#
+	west <- gps[i,3]#
+	tot <- gps[i,4]#
+	lat <- gps[i,5]#
+	lon <- gps[i,6]#
+	#floating.pie(lon, lat, x=c(east+0.001, west+0.001), radius=sqrt(tot)/2, col=c(alpha("orange", 0.5), alpha("blue", 0.5)))#
+	#add.pie(z=c(east, west), x=lon, y=lat, radius=sqrt(tot)/2, col=c(alpha("orange", 0.6), alpha("blue", 0.6)), labels="")#
+	draw.pie((z=c(east, west), x=lon, y=lat, radius=1, col=c(alpha("orange", 0.6), alpha("blue", 0.6))))#
+}
+add.pie
+?basemap
+names(dat1)
+basemap(xlim=range(dat1$lon), ylim=range(dat1$lat))
+quartz()
+map("world", xlim=range(dat1$lon), ylim=range(dat1$lat))
+range(dat1$lon)
+?basemap
+range(dat1$lat)
+basemap(xlim=range(dat1$lon), ylim=range(dat1$lat))#
+map("world", add=TRUE)
+basemap
+extent.map <- function (xlim, ylim, xlab = "Longitude", ylab = "Latitude", #
+    bg = "white", mcol="gray", mborder="TRUE" ...) #
+{#
+    asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, #
+        asp = asp, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], #
+        col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}
+extent.map <- function(xlim, ylim, xlab = "Longitude", ylab = "Latitude", bg = "white", mcol="gray", mborder="TRUE" ...)#
+{#
+    asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, #
+        asp = asp, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], #
+        col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}
+extent.map <- function(xlim, ylim, xlab = "Longitude", ylab = "Latitude", bg = "white", mcol="gray", mborder="TRUE" ...){#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, asp = asp, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}
+extent.map <- function(xlim, ylim, xlab = "Longitude", ylab = "Latitude", bg = "white", mcol="gray", mborder="TRUE"){#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, asp = asp, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}
+basemap
+extent.map <- function(xlim, ylim, xlab = "Longitude", ylab = "Latitude", bg = "white", mcol="gray", mborder="TRUE")#
+{#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, asp = asp, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}
+extent.map <- function(dat, bg = "white", mcol="gray", mborder="TRUE")#
+{#
+	xlim <- range(dat$lon)#
+	ylim <- range(dat$lat)#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, asp = asp, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}
+extent.map(dat1)
+extent.map <- function(dat, bg = "white", mcol="gray", mborder="TRUE")#, ...)#
+{#
+	xlim <- range(dat$lon)#
+	ylim <- range(dat$lat)#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, asp = asp)#, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}#
+## NEED TO FIGURE OUT HOW TO LEAVE THE ... in there, it calls standard options from base graphics
+extent.map(dat1)
+extent.map <- function(dat, bg = "white", mcol="gray", mborder="TRUE")#, ...)#
+{#
+	xlim <- range(dat$lon)#
+	ylim <- range(dat$lat)#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, asp = asp)#, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}#
+## NEED TO FIGURE OUT HOW TO LEAVE THE ... in there, it calls standard options from base graphics
+extent.map(dat1)
+extent.map(dat1, mborder=TRUE)
+extent.map <- function(dat, bg = "white", mcol="gray90", mborder=TRUE)#, ...)#
+{#
+	xlim <- range(dat$lon)#
+	ylim <- range(dat$lat)#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, asp = asp)#, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}#
+## NEED TO FIGURE OUT HOW TO LEAVE THE ... in there, it calls standard options from base graphics
+extent.map(dat1, mborder=TRUE)
+extent.map(dat2, mborder=TRUE)
+heaD(dat2)
+head(dat2)
+extent.map(dat1)
+extent.map <- function(dat, bg = "white", mcol="gray90", mborder=TRUE)#, ...)#
+{#
+	xlim <- range(dat$lon)#
+	ylim <- range(dat$lat)#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, asp = asp)#, ...)#
+    #rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+}#
+## NEED TO FIGURE OUT HOW TO LEAVE THE ... in there, it calls standard options from base graphics
+extent.map(dat1)
+extent.map <- function(dat, bg = "white", mcol="gray90", mborder=TRUE, axes=FALSE, xlab="", ylab="")#, ...)#
+{#
+	xlim <- range(dat$lon)#
+	ylim <- range(dat$lat)#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, asp = asp)#, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+    box()#
+}#
+## NEED TO FIGURE OUT HOW TO LEAVE THE ... in there, it calls standard options from base graphics
+extent.map(dat1)
+extent.map <- function(dat, bg = "white", mcol="gray90", mborder=TRUE, axes=FALSE, xlab="", ylab="")#, ...)#
+{#
+	xlim <- range(dat$lon)#
+	ylim <- range(dat$lat)#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, asp = asp, axes=axes, xlab=xlab, ylab=ylab)#, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=mcol, fill=mborder)#
+    box()#
+}#
+## NEED TO FIGURE OUT HOW TO LEAVE THE ... in there, it calls standard options from base graphics
+extent.map(dat1)
+extent.map <- function(dat, bg = "white", col="gray90", fill=TRUE, axes=FALSE, xlab="", ylab="", main="")#, ...)#
+{#
+	xlim <- range(dat$lon)#
+	ylim <- range(dat$lat)#
+	asp <- 1/cos(sum(ylim) * pi/360)#
+    plot(NA, xlim = xlim, ylim = ylim, asp = asp, axes=axes, xlab=xlab, ylab=ylab, main=main)#, ...)#
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)#
+    #add world map plotted on top#
+    map("world", add=TRUE, col=col, fill=fill)#
+    box()#
+}#
+## NEED TO FIGURE OUT HOW TO LE
+extent.map(dat1)
+extent.map(dat1, main="my map")
+extent.map(dat1, main="my map", bg="lightblue")
+extent.map(dat1, main="my map", bg="lightblue")
+?asp
+dat2 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.csv")
+dat22 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.txt", header=TRUE)
+str(dat2)
+str(dat22)
+extent.map(dat2)
+extent.map(dat2, bg="blue")
+extent.map(dat2, bg="blue", main="map")
+extent.map(dat1, bg="blue", main="map")
+extent.map(dat1)
