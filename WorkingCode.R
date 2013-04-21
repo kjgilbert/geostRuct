@@ -9,7 +9,44 @@ library(scales)
 
 
 #dummy data
-dat <- read.csv("")
+
+#my field data, smaller geographic area
+dat1 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_1.csv")
+dat11 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_1.txt", header=TRUE)  #need the header specifier unlike the default for reading .csv
+
+#illingworth field data, larger geographic area
+dat2 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.csv")
+dat22 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.txt", header=TRUE)
+## NOTE - must not have spaces in column names! otherwise text file messes up, while .csv doesn't
+
+
+
+
+
+# # # # # # # # # #         MAKE THE MAP        # # # # # # # # # # # # # # #
+
+basemap(xlim=range(dat1$lon), ylim=range(dat1$lat))
+map("world", add=TRUE)
+
+
+## EDIT THE BASEMAP FUNCTION FROM mapplots
+
+extent.map <- function(dat, bg = "white", col="gray90", fill=TRUE, axes=FALSE, xlab="", ylab="", main="")#, ...)
+{
+	xlim <- range(dat$lon)
+	ylim <- range(dat$lat)
+	asp <- 1/cos(sum(ylim) * pi/360)
+    plot(NA, xlim = xlim, ylim = ylim, asp = asp, axes=axes, xlab=xlab, ylab=ylab, main=main)#, ...)
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = bg)
+    #add world map plotted on top
+    map("world", add=TRUE, col=col, fill=fill)
+    box()
+}
+## NEED TO FIGURE OUT HOW TO LEAVE THE ... in there, it calls standard options from base graphics
+
+
+
+
 
 
 
