@@ -52,14 +52,35 @@ extent.map <- function(dat, bg = "white", col="gray90", fill=TRUE, axes=FALSE, x
 
 ### just plot a map based on lat/lon in file
 
-bmap <- function(dat, col="gray90", fill=TRUE, axes=FALSE, xlab="", ylab="", main="", usstates=FALSE)#, ...)
+bmap <- function(dat, col="gray90", fill=TRUE, axes=FALSE, xlab="", ylab="", main="", usstates=FALSE, zoom=0.005)#, ...)  #increasing zoom increases the amount of map space plotted
 {
-	xlim <- range(dat$lon)
-	ylim <- range(dat$lat)
+	xlim <- c(range(dat$lon)[1]+range(dat$lon)[1]*zoom, range(dat$lon)[2]-range(dat$lon)[2]*zoom)  ## NEED TO PUT IF STATEMENTS IN HERE FOR DATA THAT IS NOT IN N.AMERICA, because their longitudes in europe will be positive, or latitude in southern hemisphere negative
+	ylim <- c(range(dat$lat)[1]-range(dat$lat)[1]*zoom, range(dat$lat)[2]+range(dat$lat)[2]*zoom)
     #plot map
     map("world", xlim = xlim, ylim = ylim, col=col, fill=fill)
     if(usstates==TRUE){map("state", add=TRUE, col=col, fill=fill)}
     box()
+}
+
+
+
+### plot points
+
+map.pie <- function(dat, labels="", zoom=0.01){  #adjust zoom to make nonscaled points larger or smaller
+	iterate <- seq_along(dat$lat)
+	i <- 0
+	for(i in iterate){
+		slice1 <- dat[i, which(colnames(dat)=="c1")]
+		slice2 <- dat[i, which(colnames(dat)=="c2")]
+		#if()  #if there are more than 2 slices, plot them also
+		total <- dat[i, dat[i, which(colnames(dat)=="tot")]]
+		if(abs(range(dat$lon)[1]-range(dat$lon)[2]) > abs(range(dat$lat)[1]-range(dat$lat)[2])){r <- zoom*abs(range(dat$lon)[1]-range(dat$lon)[2])}else{r <- zoom*abs(range(dat$lat)[1]-range(dat$lat)[2])}
+		latitude <- dat[i, which(colnames(dat)=="lat")]
+		longitude <- dat[i, which(colnames(dat)=="lon")]
+		z <- c(slice1, slice2)
+		cols <- c("orange", "blue")
+		add.pie(z=z, x=longitude, y=latitude, radius=r, col= cols, labels=labels)
+	}
 }
 
 
@@ -69,6 +90,14 @@ bmap <- function(dat, col="gray90", fill=TRUE, axes=FALSE, xlab="", ylab="", mai
 
 
 
+
+
+
+
+
+
+## OLD STUFF BELOW
+gps <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/MAPS/latifolia_cpDNA_data.csv")
 
 
 
@@ -87,3 +116,20 @@ for(i in ids){   #run through all data points
 }
 map.scale(-50, 55, ratio=FALSE, relwidth=0.14, cex=1.5)
 box()
+
+
+
+#should try to get an apply funtion to work, but can't remember how to do it right now.  it would likely be better than a loop!!
+pie <- function(dat, scaled, col, z){
+	apply(dat, FUN=add.pie, MARGIN=1)
+	
+}
+
+
+pie <- apply(function(dat){
+	dat, FUN=add.pie(z=c(dat$c1,dat$c2), x=dat$lon, y=dat$lat, radius=dat$tot, col=c("orange", "blue"), labels="")
+})
+
+#MARGIN 1 = rows, 2 = columns
+
+
