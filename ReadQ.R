@@ -29,5 +29,5 @@ read.q <- function(qfile, clumpp=FALSE){
 	popsizes <- popsizes0[order(match(levels(q$pops),q$pops))]
 
 	#make matrix of q values for plotting
-	bars <- t(as.matrix(q[,(firstcol-1)+1:k])) #return transpose of matrix	
+	bars <<- t(as.matrix(q[,(firstcol-1)+1:k])) #return transpose of matrix	
 }
