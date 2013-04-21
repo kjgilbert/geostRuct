@@ -77,8 +77,9 @@ map.pie <- function(dat, labels="", zoom=0.01){  #adjust zoom to make nonscaled 
 		if(abs(range(dat$lon)[1]-range(dat$lon)[2]) > abs(range(dat$lat)[1]-range(dat$lat)[2])){r <- zoom*abs(range(dat$lon)[1]-range(dat$lon)[2])}else{r <- zoom*abs(range(dat$lat)[1]-range(dat$lat)[2])}
 		latitude <- dat[i, which(colnames(dat)=="lat")]
 		longitude <- dat[i, which(colnames(dat)=="lon")]
-		z <- c(slice1, slice2)
-		cols <- c("orange", "blue")
+		z <- c(slice1, slice2)  #work this out for multiple slices
+		cols <- c("orange", "blue")  #work this out for multiple colors
+		#put it all together and plot:
 		add.pie(z=z, x=longitude, y=latitude, radius=r, col= cols, labels=labels)
 	}
 }
@@ -131,5 +132,6 @@ pie <- apply(function(dat){
 })
 
 #MARGIN 1 = rows, 2 = columns
+
 
 
