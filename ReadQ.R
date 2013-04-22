@@ -32,5 +32,6 @@ read.q <- function(qfile, clumpp=FALSE){
 
 	#make matrix of q values for plotting, assigned to exist outside of the scope of the function with '<<-'
 	bars <<- t(as.matrix(q[,(firstcol-1)+1:k])) #return transpose of matrix	
-	#return(list(bars <- bars, popsizes <- popsizes))  #hmm, actually still doesn't seem to be working? FIGURE OUT WHY
+	#out <- list(bars=bars, popsizes=popsizes)  #hmm, actually still doesn't seem to be working? FIGURE OUT WHY
+	#return(out)
 }

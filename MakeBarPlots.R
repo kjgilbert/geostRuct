@@ -10,7 +10,6 @@ qfile <- "~/Documents/My_Documents/Taylor_Lab/Data/My Data/Structure/Results/Glo
 #this is a clumpp ind output file:
 clumppfile <- "~/Documents/My_Documents/UBC/Research/ReproducibilityGroup/STRUCTURE/Reanalyses/ButterflyFish/CLUMPP_Output/WithPop/K2.indfile"
 
-source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/Colors.R', chdir = TRUE)
 source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/ReadQ.R', chdir = TRUE)
 source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/PlotQ.R', chdir = TRUE)
 
