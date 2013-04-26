@@ -1,6 +1,7 @@
 
 dat <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.csv")
 
+dat1 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_1.csv")
 
 
 library(mapplots)
@@ -13,7 +14,7 @@ source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/Colors.R', 
 
 plot.pie <- function(dat, labels="", zoom=0.01, color=colors, bord=TRUE, scale=FALSE){  
 	#adjust zoom to make nonscaled points larger or smaller
-	#can call 'colors' or 'bw' to use default color settings
+	#can call 'colors' or 'bw' to use default color settings  #ADD IN TRANSPARENCY OPTIONS
 	
 	#how many slices (i.e. clusters) will be drawn:
 	selectedCols <- dat[, grep("s", names(dat))]  #find column with colons, after this column is the columns where the Q values are stored
@@ -40,8 +41,8 @@ plot.pie <- function(dat, labels="", zoom=0.01, color=colors, bord=TRUE, scale=F
 						}else{slice6 <- 0; slice7 <-0; slice8 <-0; slice9 <-0; slice10 <-0}
 					}else{slice5 <- 0; slice6 <-0; slice7 <-0; slice8 <-0; slice9 <-0; slice10 <-0}
 				}else{slice4 <-0; slice5 <-0; slice6 <-0; slice7 <-0; slice8 <-0; slice9 <-0; slice10 <-0}
-			}else{slice3 <-0; slice4 <-0; slice5 <-0; slice6 <-0; slice7 <-0; slice8 <-0; slice9 <-0; slice10 <-0}
-		}else{slice2 <-0; slice3 <-0; slice4 <-0; slice5 <-0; slice6 <-0; slice7 <-0; slice8 <-0; slice9 <-0; slice10 <-0}
+			}else{slice3<- 0; slice4<- 0; slice5<- 0; slice6<- 0; slice7<- 0; slice8<- 0; slice9<- 0; slice10<- 0}
+		}else{slice2<- 0; slice3<- 0; slice4<- 0; slice5<- 0; slice6<- 0; slice7<- 0; slice8<- 0; slice9<- 0; slice10<- 0}
 		#end if statements for number of slices/clusters being plotted
 		
 		total <- dat[i, dat[i, which(colnames(dat)=="tot")]]
@@ -60,12 +61,12 @@ plot.pie <- function(dat, labels="", zoom=0.01, color=colors, bord=TRUE, scale=F
 		longitude <- dat[i, which(colnames(dat)=="lon")]
 		
 		#areas of each slice of the pie
-		z <- c(slice1, slice2, slice3, slice4, slice5, slice6, slice7, slice8, slice9, slice10)  
+		zee <- c(slice1, slice2, slice3, slice4, slice5, slice6, slice7, slice8, slice9, slice10)  
 			#doubtful that anyone will ever need more than 10 slices
 		cols <- color
 		
 		#put it all together and plot:
-		add.pie(z=z, x=longitude, y=latitude, radius=r, col= cols, labels=labels, border=bord, lwd=0.5)
+		add.pie(z=zee, x=longitude, y=latitude, radius=r, col= cols, labels=labels, border=bord, lwd=0.5)
 	} #end for loop
 } #end function
 

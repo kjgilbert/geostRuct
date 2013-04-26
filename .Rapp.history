@@ -13,7 +13,6 @@ str(dat11)
 str(dat1)
 dat2 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.csv")
 dat22 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.txt", header=TRUE)
-dat22 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.txt", header=TRUE)
 head(dat2)
 dat2[,9]
 str(dat2)
@@ -217,7 +216,6 @@ extent.map <- function(dat, bg = "white", col="gray90", fill=TRUE, axes=FALSE, x
 extent.map(dat1)
 extent.map(dat1, main="my map")
 extent.map(dat1, main="my map", bg="lightblue")
-extent.map(dat1, main="my map", bg="lightblue")
 ?asp
 dat2 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.csv")
 dat22 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.txt", header=TRUE)
@@ -228,3 +226,38 @@ extent.map(dat2, bg="blue")
 extent.map(dat2, bg="blue", main="map")
 extent.map(dat1, bg="blue", main="map")
 extent.map(dat1)
+dat1 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_1.csv")#
+dat11 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_1.txt", header=TRUE)  #need the header specifier unlike the default for reading .csv#
+#
+#illingworth field data, larger geographic area#
+dat2 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.csv")#
+dat22 <- read.table("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.txt", header=TRUE)#
+## NOTE - must not have spaces in column names! otherwise text file messes up, while .csv doesn't#
+#has more than 2 slices#
+#
+##FORCE - titles of columns for slices must be s1 - sn...#
+dat3 <- read.csv("~/Documents/My_Documents/ProgrammingSoftware/R/Pie/DummyData_2.csv")#
+source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/PlotMap.R', chdir = TRUE)#
+source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/PlotPie.R', chdir = TRUE)
+plot.map(dat3)
+plot.pie(dat3, zoom=0.02, bord=FALSE)
+qfile <- "~/Documents/My_Documents/Taylor_Lab/Data/My Data/Structure/Results/GlobalData_WithSAMS1_11092010_run_4_f"
+source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/ReadQ.R', chdir = TRUE)
+source('~/Documents/My_Documents/ProgrammingSoftware/R/Pie/geostRuct/PlotQ.R', chdir = TRUE)
+read.q(qfile)
+plot.bars(bars)
+?draw.barplot2D
+draw.barplot2D
+stop("z should be a 2-dimensional array")
+source('~/Documents/My_Documents/UBC/Research/Ne_SimulationProject/R_ScriptsForAnalysisAndConversion/ReadNemo.R', chdir = TRUE)
+file1 <- "~/Documents/My_Documents/Taylor_Lab/Data/My Data/FSTAT/MSATdataForFSTAT.dat"
+nemo_output <- read.nemo(file1)
+x <- scan(file1, n=4)
+nloc <- x[2]
+maxall <- x[3]
+pop1 <- subset(nemo_output, nemo_output$Pop==1)
+test1 <- nemo.tmvp(pop1, pop1, maxall=100, nloci=12)
+source('~/Documents/My_Documents/UBC/Research/Ne_SimulationProject/R_ScriptsForAnalysisAndConversion/ConvertNemo_TMVP.R', chdir = TRUE)
+test1 <- nemo.tmvp(pop1, pop1, maxall=100, nloci=12)
+pop2 <- subset(nemo_output, nemo_output$Pop==2)
+test1 <- nemo.tmvp(pop1, pop2, maxall=100, nloci=12)

@@ -19,7 +19,7 @@ read.q <- function(qfile, clumpp=FALSE){
 	column <- which(colnames(vals)==rawcolumn)  #this is the column containing colons, add 1 to it in the next step for starting q values
 	firstcol <- column+1
 		#this column is where the q value data starts, preceding columns are identifiers of individuals and pops
-	}
+	} #end else statement
 
 ## Determine K
 	k <- sum(sapply(firstcol:ncol(vals),function(x){is.numeric(vals[,x])}))
