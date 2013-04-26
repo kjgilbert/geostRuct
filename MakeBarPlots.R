@@ -18,21 +18,18 @@ read.q(qfile)
 read.q(clumppfile, clumpp=TRUE)
 
 
-plot.bars(bars)
+plot.bars(bars, type="quartz")
 
 #now need to work on sizing the plot
 #maybe change how population delinitation lines are drawn
 
 
 
-pdf("~/Desktop/sizetest.pdf", width=10, height=4)
-jpeg("~/Desktop/sizetest.jpeg", width=600, height=200)
-tiff("~/Desktop/sizetest.tif", compression="none", units="px", width=800, height=200, res=100, antialias="none")
-png("~/Desktop/sizetest.png", width=800, height=200)
 
-plot.bars(bars)
 
-dev.off()
+plot.bars(bars, outfile="~/Desktop/sizetest.png", type="png", wd=1000, ht=400)
+
+
 
 
 
