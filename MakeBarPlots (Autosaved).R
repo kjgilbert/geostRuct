@@ -30,7 +30,7 @@ jpeg("~/Desktop/sizetest.jpeg", width=600, height=200)
 tiff("~/Desktop/sizetest.tif", compression="none", units="px", width=800, height=200, res=100, antialias="none")
 png("~/Desktop/sizetest.png", width=800, height=200)
 
-plot.bars(bars)
+plot.bars(bars, outfile="~/Desktop/sizetest.png", type="png", wd=1000, ht=400)
 
 dev.off()
 
